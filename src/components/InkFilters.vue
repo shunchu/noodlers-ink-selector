@@ -61,6 +61,15 @@
         <option v-for="(color, index) in colors" :key="index" :value="color">{{ color }}</option>
       </select>
     </label>
+
+    <div class="license">
+      <p>This project is open sourced under <a href="https://github.com/shunchu/noodlers-ink-selector/blob/develop/LICENSE" target="_blank">MIT License</a>.</p>
+      <p>
+        <span class="font-weight-bold">< </span>
+        <a href="https://github.com/shunchu/noodlers-ink-selector" target="_blank">Fork it</a>
+        <span class="font-weight-bold"> ></span>.
+      </p>
+    </div>
   </div>
 </template>
 
@@ -112,5 +121,18 @@ ul {
 
 ul li, select {
   font-size: 0.85rem;
+}
+
+.license {
+  font-size: 0.8rem;
+  padding: 10px;
+}
+
+.license {
+  margin: 1.5rem 0 0;
+}
+
+.license p {
+  margin: 0.2rem;
 }
 </style>
