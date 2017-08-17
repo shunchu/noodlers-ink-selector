@@ -1,7 +1,7 @@
 {
-  "name": "noodlers",
+  "name": "noodlers-ink-selector",
   "version": "1.0.0",
-  "description": "Noolder's Ink DB",
+  "description": "A Vue.js project that helps you pick the ideal Noodler's ink based on ink properties",
   "author": "Shun Chu <shun.chu@gmail.com>",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
+    "test": "yarn run unit && yarn run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
@@ -88,7 +88,7 @@
   },
   "engines": {
     "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
+    "yarn": ">= 0.27.0"
   },
   "browserslist": [
     "> 1%",
