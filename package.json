@@ -1,7 +1,7 @@
 {
-  "name": "noodlers",
+  "name": "Noodlers Ink Selector",
   "version": "1.0.0",
-  "description": "Noolder's Ink DB",
+  "description": "A Vue.js project that helps you pick the ideal Noodler's ink based on ink properties",
   "author": "Shun Chu <shun.chu@gmail.com>",
   "private": true,
   "scripts": {
