@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="filters">
     <h4 class="text-left">Filters</h4>
-    
+
     <ul class="text-left">
       <li>
         <label class="form-check-label">
