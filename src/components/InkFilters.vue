@@ -56,7 +56,7 @@
     <label class="form-check-label">
       <select class="colors" v-model="selectColor">
         <option value="">-- Select Color --</option>
-        <option v-for="(color, index) in colors" :key="index" :value="color">{{ color }}</option>
+        <option v-for="(color, index) in availableColors" :key="index" :value="color">{{ color }}</option>
       </select>
     </label>
 
@@ -89,7 +89,7 @@ export default {
   },
 
   computed: {
-    colors: function () {
+    availableColors: function () {
       const colorProps = this.$store.state.inks.map(ink => { return ink.colors })
       const uniqueColors = new Set([].concat(...colorProps))
       return [...uniqueColors].sort().filter((color) => color)
