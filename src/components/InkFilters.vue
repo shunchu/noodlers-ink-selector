@@ -6,57 +6,56 @@
       <li>
         <label class="form-check-label">
           <input class="form-check-input" type="checkbox" value="archival" v-on:click="updateInks" v-model="$store.state.filters">
-          <i class="icon-history"></i>
           Archival
         </label>
       </li>
       <li>
         <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value="exclusive" v-on:click="updateInks" v-model="$store.state.filters">
+          Exclusive
+        </label>
+      </li>
+      <li>
+        <label class="form-check-label">
           <input class="form-check-input" type="checkbox" value="freezeResistant" v-on:click="updateInks" v-model="$store.state.filters">
-          <i class="icon-snowflake-o"></i>
           Freeze Resistant
         </label>
       </li>
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="uvGlow" v-on:click="updateInks" v-model="$store.state.filters">
-          <i class="icon-eye-plus"></i>
-          Glow under UV
-        </label>
-      </li>
-      <li>
-        <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="forSecurityDocs" v-on:click="updateInks" v-model="$store.state.filters">
-          <i class="icon-lock"></i>
-          Ideal for Security
+          <input class="form-check-input" type="checkbox" value="fluorescent" v-on:click="updateInks" v-model="$store.state.filters">
+          Fluorescent
         </label>
       </li>
       <li>
         <label class="form-check-label">
           <input class="form-check-input" type="checkbox" value="lubricated" v-on:click="updateInks" v-model="$store.state.filters">
-          <i class="icon-tint"></i>
           Lubricated
         </label>
       </li>
       <li>
         <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value="temperProof" v-on:click="updateInks" v-model="$store.state.filters">
+          Tamper Proof
+        </label>
+      </li>
+      <li>
+        <label class="form-check-label">
           <input class="form-check-input" type="checkbox" value="uvResistant" v-on:click="updateInks" v-model="$store.state.filters">
-          <i class="icon-sun"></i>
           UV/Bleach Resistant
         </label>
       </li>
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="waterProof" v-on:click="updateInks" v-model="$store.state.filters">
-          <i class="icon-lifebuoy"></i>
-          Water Proof
+          <input class="form-check-input" type="checkbox" value="waterproof" v-on:click="updateInks" v-model="$store.state.filters">
+          Waterproof
         </label>
       </li>
     </ul>
 
     <label class="form-check-label">
       <select v-model="selectColor">
-        <option value=undefined>-- Select Color --</option>
+        <option value="">-- Select Color --</option>
         <option v-for="(color, index) in colors" :key="index" :value="color">{{ color }}</option>
       </select>
     </label>
@@ -100,8 +99,7 @@ export default {
         return this.$store.state.selectedColor
       },
       set (option) {
-        const selectedOption = option.length > 0 ? option : undefined
-        this.$store.dispatch('selectColor', selectedOption)
+        this.$store.dispatch('selectColor', option)
       }
     }
   }
