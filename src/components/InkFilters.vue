@@ -55,7 +55,6 @@
     </ul>
 
     <label class="form-check-label">
-      <!-- <select @change="selectColor($event.target.value)"> -->
       <select v-model="selectedColor">
         <option value=undefined>-- Select Color --</option>
         <option v-for="(color, index) in colors" :key="index" :value="color">{{ color }}</option>
