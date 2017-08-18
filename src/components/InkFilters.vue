@@ -55,7 +55,7 @@
     </ul>
 
     <label class="form-check-label">
-      <select v-model="selectedColor">
+      <select v-model="selectColor">
         <option value=undefined>-- Select Color --</option>
         <option v-for="(color, index) in colors" :key="index" :value="color">{{ color }}</option>
       </select>
@@ -66,7 +66,7 @@
       <p>
         <span class="font-weight-bold">< </span>
         <a href="https://github.com/shunchu/noodlers-ink-selector" target="_blank">Fork it</a>
-        <span class="font-weight-bold"> ></span>.
+        <span class="font-weight-bold"> ></span>
       </p>
     </div>
   </div>
@@ -95,7 +95,7 @@ export default {
       const uniqueColors = new Set([].concat(...colorProps))
       return [...uniqueColors].sort().filter((color) => color)
     },
-    selectedColor: {
+    selectColor: {
       get () {
         return this.$store.state.selectedColor
       },
