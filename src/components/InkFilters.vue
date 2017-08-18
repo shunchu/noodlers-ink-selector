@@ -54,7 +54,7 @@
     </ul>
 
     <label class="form-check-label">
-      <select v-model="selectColor">
+      <select class="colors" v-model="selectColor">
         <option value="">-- Select Color --</option>
         <option v-for="(color, index) in colors" :key="index" :value="color">{{ color }}</option>
       </select>
