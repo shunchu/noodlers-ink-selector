@@ -10,19 +10,22 @@
       <i :class="ink.archival | setCssClasses" :title="ink.archival | capitalize | boolToString"></i>
     </td>
     <td>
-      <i :class="ink.forSecurityDocs | setCssClasses" :title="ink.forSecurityDocs | capitalize | boolToString"></i>
+      <i :class="ink.tamperProof | setCssClasses" :title="ink.tamperProof | capitalize | boolToString"></i>
     </td>
     <td>
-      <i :class="ink.waterProof | setCssClasses" :title="ink.waterProof | capitalize | boolToString"></i>
+      <i :class="ink.waterproof | setCssClasses" :title="ink.waterproof | capitalize | boolToString"></i>
     </td>
     <td>
-      <i :class="ink.uvGlow | setCssClasses" :title="ink.uvGlow | capitalize | boolToString"></i>
+      <i :class="ink.fluorescent | setCssClasses" :title="ink.fluorescent | capitalize | boolToString"></i>
     </td>
     <td>
       <i :class="ink.lubricated | setCssClasses" :title="ink.lubricated | capitalize | boolToString"></i>
     </td>
     <td>
       <i :class="ink.freezeResistant | setCssClasses" :title="ink.freezeResistant | capitalize | boolToString"></i>
+    </td>
+    <td>
+      <i :class="ink.exclusive | setCssClasses" :title="ink.exclusive | capitalize | boolToString"></i>
     </td>
     <td class="text-left">{{ ink.notes }}</td>
   </tr>

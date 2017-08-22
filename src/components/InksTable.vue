@@ -11,11 +11,12 @@
             <th class="text-center">Color(s)</th>
             <th class="text-center">UV/Bleach Resistant</th>
             <th class="text-center">Archival</th>
-            <th class="text-center">Ideal for Security</th>
-            <th class="text-center">Water Proof</th>
-            <th class="text-center">Glows under UV</th>
+            <th class="text-center">Tamper Proof</th>
+            <th class="text-center">Waterproof</th>
+            <th class="text-center">Fluorescent</th>
             <th class="text-center">Lubricated</th>
             <th class="text-center">Freeze Resistant</th>
+            <th class="text-center">Exclusive</th>
             <th class="text-center">Notes</th>
           </tr>
         </thead>
