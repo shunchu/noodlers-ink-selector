@@ -35,7 +35,7 @@
       </li>
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="temperProof" v-on:click="updateInks" v-model="$store.state.filters">
+          <input class="form-check-input" type="checkbox" value="tamperProof" v-on:click="updateInks" v-model="$store.state.filters">
           Tamper Proof
         </label>
       </li>
