@@ -88,16 +88,12 @@
     "webpack-merge": "^4.1.0"
   },
   "engines": {
-    "node": ">= 4.0.0",
-    "yarn": ">= 0.27.0"
+    "node": ">= 16.0.0 < 23.0.0",
+    "yarn": ">= 1.22.0"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 8"
-  ],
-  "peerDependencies": {
-    "jquery": "^3.2.1",
-    "popper.js": "^1.11.0"
-  }
+    "not ie <= 11"
+  ]
 }
