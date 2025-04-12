@@ -1,4 +1,4 @@
-require('babel-register')
+require('@babel/register')
 var config = require('../../config')
 
 // http://nightwatchjs.org/gettingstarted#settings-file
@@ -17,6 +17,15 @@ module.exports = {
     }
   },
 
+  webdriver: {
+    start_process: true,
+    server_path: '',
+    cli_args: [
+      '--verbose'
+    ],
+    port: 9515
+  },
+
   test_settings: {
     default: {
       selenium_port: 4444,
@@ -31,7 +40,10 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome',
         javascriptEnabled: true,
-        acceptSslCerts: true
+        acceptSslCerts: true,
+        chromeOptions: {
+          args: ['--headless', '--no-sandbox', '--disable-gpu']
+        }
       }
     },
 

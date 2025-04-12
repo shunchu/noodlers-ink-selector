@@ -11,16 +11,18 @@ module.exports = function (config) {
     // 1. install corresponding karma launcher
     //    http://karma-runner.github.io/0.13/config/browsers.html
     // 2. add it to the `browsers` array below.
-    browsers: ['PhantomJS'],
-    frameworks: ['mocha', 'sinon-chai', 'phantomjs-shim'],
+    browsers: ['ChromeHeadless'],
+    frameworks: ['mocha', 'chai', 'sinon-chai'],
     reporters: ['spec', 'coverage'],
-    files: ['./index.js'],
+    files: [
+      { pattern: './index.js', watched: false }
+    ],
     preprocessors: {
       './index.js': ['webpack', 'sourcemap']
     },
     webpack: webpackConfig,
     webpackMiddleware: {
-      noInfo: true
+      stats: 'minimal'
     },
     coverageReporter: {
       dir: './coverage',
@@ -28,6 +30,21 @@ module.exports = function (config) {
         { type: 'lcov', subdir: '.' },
         { type: 'text-summary' }
       ]
-    }
+    },
+    client: {
+      mocha: {
+        timeout: 4000
+      }
+    },
+    plugins: [
+      'karma-webpack',
+      'karma-sourcemap-loader',
+      'karma-mocha',
+      'karma-chai',
+      'karma-sinon-chai',
+      'karma-chrome-launcher',
+      'karma-spec-reporter',
+      'karma-coverage'
+    ]
   })
 }

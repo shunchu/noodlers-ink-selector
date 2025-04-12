@@ -41,10 +41,10 @@ export default {
   },
 
   filters: {
-    arrayToString: (arr) => {
+    arrayToString: function(arr) {
       return arr.map(word => {
-        return this.default.filters.capitalize(word)
-      }).join(', ')
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }).join(', ');
     },
     boolToString: function (word) {
       if (word.toLowerCase() === 'true') {

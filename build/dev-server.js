@@ -9,7 +9,7 @@ var opn = require('opn')
 var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
-var proxyMiddleware = require('http-proxy-middleware')
+var { createProxyMiddleware } = require('http-proxy-middleware')
 var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
@@ -26,20 +26,31 @@ var app = express()
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
-  publicPath: webpackConfig.output.publicPath,
-  quiet: true
+  publicPath: webpackConfig.output.publicPath
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: false,
   heartbeat: 2000
 })
+
 // force page reload when html-webpack-plugin template changes
-compiler.plugin('compilation', function (compilation) {
-  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
-    cb()
-  })
+compiler.hooks.compilation.tap('HtmlWebpackPluginHooks', compilation => {
+  // Modern HTML Webpack Plugin
+  if (compilation.hooks.htmlWebpackPluginAfterEmit) {
+    compilation.hooks.htmlWebpackPluginAfterEmit.tap('AfterEmitPlugin', () => {
+      hotMiddleware.publish({ action: 'reload' })
+    })
+  } else {
+    // For html-webpack-plugin 4.x and above
+    const HtmlWebpackPlugin = require('html-webpack-plugin')
+    const hooks = HtmlWebpackPlugin.getHooks(compilation)
+    
+    hooks.afterEmit.tapAsync('AfterEmitPlugin', (data, callback) => {
+      hotMiddleware.publish({ action: 'reload' })
+      callback()
+    })
+  }
 })
 
 // proxy api requests
@@ -48,7 +59,7 @@ Object.keys(proxyTable).forEach(function (context) {
   if (typeof options === 'string') {
     options = { target: options }
   }
-  app.use(proxyMiddleware(options.filter || context, options))
+  app.use(createProxyMiddleware(options.filter || context, options))
 })
 
 // handle fallback for HTML5 history API

@@ -3,7 +3,7 @@ import InkFilters from '@/components/InkFilters'
 import 'babel-polyfill'
 import Vuex from 'vuex'
 import sinon from 'sinon'
-import chai from 'chai'
+import chai, { expect } from 'chai'
 import sinonChai from 'sinon-chai'
 
 chai.use(sinonChai)
