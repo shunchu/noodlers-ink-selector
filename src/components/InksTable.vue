@@ -1,37 +1,35 @@
 <template>
   <div class="inks-table">
     <div v-if="inkStore.isLoading" class="text-center my-4">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
     </div>
-
-    <div v-else-if="noMatchingInks" class="text-danger font-weight-bold">
+    
+    <div v-else-if="noMatchingInks" class="text-red-500 font-bold p-4">
       No matching inks found
     </div>
 
-    <div v-else>
-      <table id="inks-table" class="table table-bordered table-striped sticky-header">
-        <thead>
+    <div v-else class="overflow-x-auto">
+      <table class="min-w-full border border-gray-200">
+        <thead class="bg-gray-100 sticky top-0">
           <tr>
-            <th>Name</th>
-            <th>Stock#</th>
-            <th class="text-center">Color(s)</th>
-            <th class="text-center">UV/Bleach Resistant</th>
-            <th class="text-center">Archival</th>
-            <th class="text-center">Tamper Proof</th>
-            <th class="text-center">Waterproof</th>
-            <th class="text-center">Fluorescent</th>
-            <th class="text-center">Lubricated</th>
-            <th class="text-center">Freeze Resistant</th>
-            <th class="text-center">Exclusive</th>
-            <th class="text-center">Notes</th>
+            <th class="p-3 text-left">Name</th>
+            <th class="p-3">Stock#</th>
+            <th class="p-3 text-center">Color(s)</th>
+            <th class="p-3 text-center">UV/Bleach Resistant</th>
+            <th class="p-3 text-center">Archival</th>
+            <th class="p-3 text-center">Tamper Proof</th>
+            <th class="p-3 text-center">Waterproof</th>
+            <th class="p-3 text-center">Fluorescent</th>
+            <th class="p-3 text-center">Lubricated</th>
+            <th class="p-3 text-center">Freeze Resistant</th>
+            <th class="p-3 text-center">Exclusive</th>
+            <th class="p-3 text-center">Notes</th>
           </tr>
         </thead>
-        <tbody>
-          <ink-row
-            v-for="ink in displayedInks"
-            :key="ink.name"
+        <tbody class="divide-y divide-gray-200">
+          <ink-row 
+            v-for="ink in displayedInks" 
+            :key="ink.name" 
             :ink="ink"
           />
         </tbody>
@@ -53,14 +51,14 @@ onMounted(async () => {
 })
 
 const displayedInks = computed(() => {
-  return inkStore.filteredInks.length > 0
-    ? inkStore.filteredInks
+  return inkStore.filteredInks.length > 0 
+    ? inkStore.filteredInks 
     : inkStore.inks
 })
 
 const noMatchingInks = computed(() => {
-  return !inkStore.isLoading &&
-         inkStore.filteredInks.length === 0 &&
+  return !inkStore.isLoading && 
+         inkStore.filteredInks.length === 0 && 
          inkStore.inks.length > 0
 })
 </script>
