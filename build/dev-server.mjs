@@ -1,35 +1,37 @@
-require('./check-versions')()
+import './check-versions.js'
 
-var config = require('../config')
+import config from '../config.js'
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
-var opn = require('opn')
-var path = require('path')
-var express = require('express')
-var webpack = require('webpack')
-var { createProxyMiddleware } = require('http-proxy-middleware')
-var webpackConfig = process.env.NODE_ENV === 'testing'
-  ? require('./webpack.prod.conf')
-  : require('./webpack.dev.conf')
+import opn from 'opn'
+import path from 'path'
+import express from 'express'
+import webpack from 'webpack'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+
+const webpackConfig = process.env.NODE_ENV === 'testing'
+  ? await import('./webpack.prod.conf.mjs')
+  : await import('./webpack.dev.conf.mjs')
 
 // default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
+const port = process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false
-var autoOpenBrowser = !!config.dev.autoOpenBrowser
+const autoOpenBrowser = !!config.dev.autoOpenBrowser
 // Define HTTP proxies to your custom API backend
-// https://github.com/chimurai/http-proxy-middleware
-var proxyTable = config.dev.proxyTable
+const proxyTable = config.dev.proxyTable
 
-var app = express()
-var compiler = webpack(webpackConfig)
+const app = express()
+const compiler = webpack(webpackConfig)
 
-var devMiddleware = require('webpack-dev-middleware')(compiler, {
+const devMiddleware = webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath
 })
 
-var hotMiddleware = require('webpack-hot-middleware')(compiler, {
+const hotMiddleware = webpackHotMiddleware(compiler, {
   log: false,
   heartbeat: 2000
 })
@@ -43,7 +45,7 @@ compiler.hooks.compilation.tap('HtmlWebpackPluginHooks', compilation => {
     })
   } else {
     // For html-webpack-plugin 4.x and above
-    const HtmlWebpackPlugin = require('html-webpack-plugin')
+    const HtmlWebpackPlugin = await import('html-webpack-plugin')
     const hooks = HtmlWebpackPlugin.getHooks(compilation)
     
     hooks.afterEmit.tapAsync('AfterEmitPlugin', (data, callback) => {
@@ -95,7 +97,7 @@ devMiddleware.waitUntilValid(() => {
 
 var server = app.listen(port)
 
-module.exports = {
+export {
   ready: readyPromise,
   close: () => {
     server.close()

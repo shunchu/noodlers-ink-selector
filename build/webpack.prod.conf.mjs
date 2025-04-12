@@ -1,20 +1,22 @@
-var path = require('path')
-var utils = require('./utils')
-var webpack = require('webpack')
-var config = require('../config')
-var { merge } = require('webpack-merge')
-var baseWebpackConfig = require('./webpack.base.conf')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var MiniCssExtractPlugin = require('mini-css-extract-plugin')
-var CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-var TerserPlugin = require('terser-webpack-plugin')
+import path from 'path'
+import utils from './utils.js'
+import webpack from 'webpack'
+import config from '../config.js'
+import { merge } from 'webpack-merge'
+import baseWebpackConfig from './webpack.base.conf.mjs'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
+import CompressionWebpackPlugin from 'compression-webpack-plugin'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
-var env = process.env.NODE_ENV === 'testing'
+const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.build.env
 
-var webpackConfig = merge(baseWebpackConfig, {
+const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   module: {
     rules: utils.styleLoaders({
@@ -98,8 +100,6 @@ var webpackConfig = merge(baseWebpackConfig, {
 })
 
 if (config.build.productionGzip) {
-  var CompressionWebpackPlugin = require('compression-webpack-plugin')
-
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
       filename: '[path][base].gz',
@@ -116,8 +116,7 @@ if (config.build.productionGzip) {
 }
 
 if (config.build.bundleAnalyzerReport) {
-  var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
 
-module.exports = webpackConfig
+export default webpackConfig

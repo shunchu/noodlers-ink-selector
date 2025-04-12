@@ -1,17 +1,17 @@
-var utils = require('./utils')
-var webpack = require('webpack')
-var config = require('../config')
-var { merge } = require('webpack-merge')
-var baseWebpackConfig = require('./webpack.base.conf')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+import utils from './utils.js'
+import webpack from 'webpack'
+import config from '../config.js'
+import { merge } from 'webpack-merge'
+import baseWebpackConfig from './webpack.base.conf.mjs'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin'
 
 // add hot-reload related code to entry chunks
-Object.keys(baseWebpackConfig.entry).forEach(function (name) {
+Object.keys(baseWebpackConfig.entry).forEach((name) => {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
 })
 
-module.exports = merge(baseWebpackConfig, {
+export default merge(baseWebpackConfig, {
   mode: 'development',
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })

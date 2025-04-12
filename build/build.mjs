@@ -1,16 +1,16 @@
-require('./check-versions')()
+import './check-versions.js'
 
 process.env.NODE_ENV = 'production'
 
-var ora = require('ora')
-var { rimraf } = require('rimraf')
-var path = require('path')
-var chalk = require('chalk')
-var webpack = require('webpack')
-var config = require('../config')
-var webpackConfig = require('./webpack.prod.conf')
+import ora from 'ora'
+import { rimraf } from 'rimraf'
+import path from 'path'
+import chalk from 'chalk'
+import webpack from 'webpack'
+import config from '../config.js'
+import webpackConfig from './webpack.prod.conf.mjs'
 
-var spinner = ora('building for production...')
+const spinner = ora('building for production...')
 spinner.start()
 
 // Use async/await with rimraf
@@ -20,7 +20,7 @@ async function build() {
     await rimraf(path.join(config.build.assetsRoot, config.build.assetsSubDirectory))
     
     // Build with webpack
-    webpack(webpackConfig, function (err, stats) {
+    webpack(webpackConfig, (err, stats) => {
       spinner.stop()
       if (err) throw err
       process.stdout.write(stats.toString({

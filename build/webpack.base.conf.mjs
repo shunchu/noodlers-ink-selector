@@ -1,14 +1,14 @@
-var path = require('path')
-var utils = require('./utils')
-var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
-var { VueLoaderPlugin } = require('vue-loader')
+import path from 'path'
+import { fileURLToPath } from 'url'
+import utils from './utils.js'
+import config from '../config.js'
+import { VueLoaderPlugin } from 'vue-loader'
 
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
-}
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-module.exports = {
+const resolve = (dir) => path.join(__dirname, '..', dir)
+
+export default {
   entry: {
     app: './src/main.js'
   },
@@ -22,7 +22,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      'vue$': 'vue/dist/vue.esm-bundler.js',
       '@': resolve('src')
     }
   },
@@ -42,8 +42,7 @@ module.exports = {
       // },
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: vueLoaderConfig
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
