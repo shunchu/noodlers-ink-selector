@@ -5,60 +5,63 @@
     <ul class="text-left">
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="archival" v-on:click="updateInks" v-model="$store.state.filters">
+          <input class="form-check-input" type="checkbox" value="archival" v-on:click="updateInks" v-model="filters">
           Archival
         </label>
       </li>
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="exclusive" v-on:click="updateInks" v-model="$store.state.filters">
+          <input class="form-check-input" type="checkbox" value="exclusive" v-on:click="updateInks" v-model="filters">
           Exclusive
         </label>
       </li>
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="freezeResistant" v-on:click="updateInks" v-model="$store.state.filters">
+          <input class="form-check-input" type="checkbox" value="freezeResistant" v-on:click="updateInks" v-model="filters">
           Freeze Resistant
         </label>
       </li>
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="fluorescent" v-on:click="updateInks" v-model="$store.state.filters">
+          <input class="form-check-input" type="checkbox" value="fluorescent" v-on:click="updateInks" v-model="filters">
           Fluorescent
         </label>
       </li>
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="lubricated" v-on:click="updateInks" v-model="$store.state.filters">
+          <input class="form-check-input" type="checkbox" value="lubricated" v-on:click="updateInks" v-model="filters">
           Lubricated
         </label>
       </li>
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="tamperProof" v-on:click="updateInks" v-model="$store.state.filters">
+          <input class="form-check-input" type="checkbox" value="tamperProof" v-on:click="updateInks" v-model="filters">
           Tamper Proof
         </label>
       </li>
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="uvResistant" v-on:click="updateInks" v-model="$store.state.filters">
+          <input class="form-check-input" type="checkbox" value="uvResistant" v-on:click="updateInks" v-model="filters">
           UV/Bleach Resistant
         </label>
       </li>
       <li>
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="waterproof" v-on:click="updateInks" v-model="$store.state.filters">
+          <input class="form-check-input" type="checkbox" value="waterproof" v-on:click="updateInks" v-model="filters">
           Waterproof
         </label>
       </li>
     </ul>
 
-    <label class="form-check-label">
-      <select class="colors" v-model="selectColor">
-        <option value="">-- Select Color --</option>
-        <option v-for="(color, index) in availableColors" :key="index" :value="color">{{ color }}</option>
+    <div class="color-filters">
+      <h4 class="text-left">Color</h4>
+      <select class="form-select" v-model="selectColor">
+        <option value="all">All Colors</option>
+        <option v-for="color in availableColors" v-bind:value="color">
+          {{ color }}
+        </option>
       </select>
-    </label>
+    </div>
 
     <div class="license">
       <p>This project is open sourced under <a href="https://github.com/shunchu/noodlers-ink-selector/blob/develop/LICENSE" target="_blank">MIT License</a>.</p>
@@ -71,49 +74,64 @@
   </div>
 </template>
 
+<script setup>
+import { computed } from 'vue'
+import { useInkStore } from '@/stores/inks'
 
-<script>
-export default {
-  name: 'ink-filters',
-  props: ['color'],
-  data () {
-    return {
-      inks: this.$store.state.inks
-    }
-  },
+const inkStore = useInkStore()
 
-  methods: {
-    updateInks: function () {
-      this.$store.dispatch('filterInks')
-    }
-  },
-
-  computed: {
-    availableColors: function () {
-      const colorProps = this.$store.state.inks.map(ink => { return ink.colors })
-      const uniqueColors = new Set([].concat(...colorProps))
-      return [...uniqueColors].sort().filter((color) => color)
-    },
-    selectColor: {
-      get () {
-        return this.$store.state.selectedColor
-      },
-      set (option) {
-        this.$store.dispatch('selectColor', option)
-      }
-    }
+const filters = computed({
+  get: () => inkStore.filters,
+  set: (value) => { 
+    inkStore.filters = value
+    inkStore.filterInks()
   }
-}
+})
+
+const selectColor = computed({
+  get: () => inkStore.selectColor,
+  set: (value) => { 
+    inkStore.selectColor = value
+    inkStore.filterInks()
+  }
+})
+
+// Get unique colors from all ink color arrays
+const availableColors = computed(() => {
+  const colors = new Set()
+  inkStore.inks.forEach(ink => {
+    if (ink.colors && ink.colors.length) {
+      ink.colors.forEach(color => colors.add(color))
+    }
+  })
+  return Array.from(colors).sort()
+})
+
+// Initial filter run
+inkStore.filterInks()
 </script>
 
-
 <style scoped>
-h4 {
-  padding-left: 40px;
+.filters {
+  position: sticky;
+  top: 1rem;
 }
 
 ul {
   list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 0.25rem;
+}
+
+.color-filters {
+  margin-top: 1.5rem;
+}
+
+h4 {
+  padding-left: 40px;
 }
 
 ul li, select {

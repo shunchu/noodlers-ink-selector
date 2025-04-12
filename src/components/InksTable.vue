@@ -1,6 +1,14 @@
 <template>
   <div class="inks-table">
-    <div v-if="noMatchingInks" class="text-danger font-weight-bold">No matching inks found</div>
+    <div v-if="inkStore.isLoading" class="text-center my-4">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <div v-else-if="noMatchingInks" class="text-danger font-weight-bold">
+      No matching inks found
+    </div>
 
     <div v-else>
       <table id="inks-table" class="table table-bordered table-striped sticky-header">
@@ -21,64 +29,50 @@
           </tr>
         </thead>
         <tbody>
-          <ink-row v-for="(ink, index) in inks" v-bind:ink="ink" v-bind:key="ink.index"></ink-row>
+          <ink-row
+            v-for="ink in displayedInks"
+            :key="ink.name"
+            :ink="ink"
+          />
         </tbody>
       </table>
     </div>
   </div>
 </template>
 
+<script setup>
+import { onMounted, computed } from 'vue'
+import { useInkStore } from '@/stores/inks'
+import InkRow from './InkRow.vue'
 
+const inkStore = useInkStore()
 
-<script>
-import InkRow from './InkRow'
+onMounted(async () => {
+  await inkStore.initialize()
+  await inkStore.filterInks()
+})
 
-export default {
-  name: 'inks-table',
-  components: { InkRow },
-  data () {
-    return {}
-  },
+const displayedInks = computed(() => {
+  return inkStore.filteredInks.length > 0
+    ? inkStore.filteredInks
+    : inkStore.inks
+})
 
-  computed: {
-    inks: function () {
-      return this.$store.state.filteredInks.length > 0 ? this.$store.state.filteredInks : this.$store.state.inks
-    },
-    noMatchingInks: function () {
-      return this.$store.state.filteredInks.length === 0 && this.$store.state.filters.length > 0
-    }
-  }
-}
+const noMatchingInks = computed(() => {
+  return !inkStore.isLoading &&
+         inkStore.filteredInks.length === 0 &&
+         inkStore.inks.length > 0
+})
 </script>
 
-
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  tr th { font-size: 0.8rem; }
-
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  a {
-    color: #42b983;
-  }
-
-  table thead {
-    /* display: block; */
-    /* position: fixed; */
-    /* top: 0; */
-    background-color: white;
-  }
+.sticky-header {
+  position: relative;
+}
+.sticky-header thead th {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
 </style>

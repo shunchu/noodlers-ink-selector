@@ -8,12 +8,17 @@
       <InkFilters class="col-sm-2" />
       <InksTable class="col-sm-10" />
     </div>
+    <ErrorDisplay :error="$inkStore.error" />
   </div>
 </template>
 
 <script setup>
 import InksTable from './components/InksTable.vue'
 import InkFilters from './components/InkFilters.vue'
+import ErrorDisplay from './components/ErrorDisplay.vue'
+import { useInkStore } from './stores/inks'
+
+const $inkStore = useInkStore()
 </script>
 
 <style>
