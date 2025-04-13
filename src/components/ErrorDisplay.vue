@@ -1,11 +1,12 @@
 <template>
   <div 
     v-if="error" 
-    class="fixed bottom-5 right-5 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded shadow-lg"
-    role="alert"
+    class="p-4 mb-4 bg-red-50/95 border border-red-200/80 rounded-lg text-red-700/90 text-sm"
   >
-    <p class="font-bold">Error:</p>
-    <p>{{ error }}</p>
+    <div class="flex items-center gap-2">
+      <i class="fas fa-exclamation-circle text-red-600/90"></i>
+      <span>{{ error }}</span>
+    </div>
   </div>
 </template>
 
