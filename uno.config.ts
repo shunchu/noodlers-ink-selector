@@ -1,34 +1,46 @@
 import { defineConfig, presetUno, presetAttributify } from 'unocss'
 
+// More selective color palette
 const colors = ['red', 'blue', 'green', 'gray'];
-const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-const variants = ['hover', 'focus'];
+const commonShades = [300, 400, 500, 600];
+const hoverColors = ['red-500', 'blue-500', 'gray-200', 'green-500'];
 
-const classes = colors.flatMap(c =>
-  shades.map(s => `text-${c}-${s}`)
+// Generate safelist more efficiently
+const textClasses = colors.flatMap(c =>
+  commonShades.map(s => `text-${c}-${s}`)
 );
 
-const variantClasses = variants.flatMap(v =>
-  classes.map(cls => `${v}:${cls}`)
+const bgClasses = colors.flatMap(c =>
+  commonShades.map(s => `bg-${c}-${s}`)
+);
+
+const borderClasses = colors.flatMap(c =>
+  commonShades.map(s => `border-${c}-${s}`)
+);
+
+const hoverClasses = ['hover'].flatMap(v =>
+  hoverColors.map(cls => [
+    `${v}:text-${cls}`,
+    `${v}:bg-${cls}`,
+    `${v}:border-${cls}`
+  ]).flat()
 );
 
 export default defineConfig({
   presets: [
     presetUno({
-      dark: 'class',
-      vite: {
-        version: 6
-      }
+      dark: 'class'
     }),
     presetAttributify()
   ],
   safelist: [
-    // 'text-red-600',
-    // 'text-green-600',
-    // 'text-yellow-500',
-    // 'text-blue-500',
-    // 'text-gray-400',
-    ...classes,
-    ...variantClasses,
+    // Common text colors
+    ...textClasses,
+    // Common background colors
+    ...bgClasses,
+    // Common border colors
+    ...borderClasses,
+    // Hover variants
+    ...hoverClasses,
   ]
 })
