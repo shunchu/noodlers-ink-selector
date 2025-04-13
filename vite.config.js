@@ -1,31 +1,24 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import path from 'path'
-import autoprefixer from 'autoprefixer'
-import postcssPresetEnv from 'postcss-preset-env'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import UnoCSS from 'unocss/vite';
+import transformerDirectives from '@unocss/transformer-directives'
+import path from 'path';
 
 export default defineConfig({
-  plugins: [vue()],
-  css: {
-    postcss: {
-      plugins: [
-        autoprefixer(),
-        postcssPresetEnv()
-      ]
-    }
-  },
+  plugins: [
+    vue(),
+    UnoCSS({
+      transformers: [transformerDirectives()]
+    })
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
     }
-  },
-  server: {
-    port: 8080,
-    open: true
   },
   build: {
     outDir: 'dist',
     assetsDir: 'static',
     sourcemap: true
   }
-})
+});
