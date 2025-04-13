@@ -8,9 +8,9 @@
       <table class="w-full border-collapse">
         <thead class="bg-gray-100">
           <tr class="border-b border-gray-200">
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[200px] text-left vertical-bottom pb-1">Name</th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px] vertical-bottom pb-1"><span>Stock#</span></th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[120px] vertical-bottom pb-1"><span>Color(s)</span></th>
+            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[200px] text-left align-bottom pb-1">Name</th>
+            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px] align-bottom pb-1"><span>Stock#</span></th>
+            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[120px] align-bottom pb-1"><span>Color(s)</span></th>
             <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>UV/Bleach Resist.</span></th>
             <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Archival</span></th>
             <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Tamper Proof</span></th>
@@ -19,7 +19,7 @@
             <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Lubricated</span></th>
             <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Freeze Resist.</span></th>
             <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Exclusive</span></th>
-            <th class="p-1.5 text-xs max-w-[150px] text-left vertical-bottom pb-1"><span>Notes</span></th>
+            <th class="p-1.5 text-xs max-w-[150px] text-left align-bottom pb-1"><span>Notes</span></th>
           </tr>
         </thead>
         <tbody>
@@ -54,12 +54,6 @@ const displayedInks = computed(() => {
   return inkStore.filteredInks.length > 0
     ? inkStore.filteredInks
     : inkStore.inks
-})
-
-const noMatchingInks = computed(() => {
-  return !inkStore.isLoading &&
-         inkStore.filteredInks.length === 0 &&
-         inkStore.inks.length > 0
 })
 </script>
 
