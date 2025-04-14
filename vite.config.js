@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import UnoCSS from 'unocss/vite';
-import transformerDirectives from '@unocss/transformer-directives'
+import transformerDirectives from '@unocss/transformer-directives';
 import path from 'path';
 
 export default defineConfig({
+  base: '/noodlers-ink-selector/',
   plugins: [
     vue(),
     UnoCSS({
@@ -18,19 +19,14 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    assetsDir: 'static',
+    assetsDir: 'assets',
+    emptyOutDir: true,
     sourcemap: true,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-      }
-    },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor': ['vue', 'pinia']
-        }
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js'
       }
     }
   }
