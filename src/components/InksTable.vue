@@ -4,22 +4,22 @@
       <slot name="filters"></slot>
     </div>
 
-    <div v-if="displayedInks.length > 0" class="flex-1 min-w-0 overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-300">
-      <table class="w-full border-collapse">
-        <thead class="bg-gray-100">
-          <tr class="border-b border-gray-200">
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[200px] text-left align-bottom pb-1">Name</th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px] align-bottom pb-1"><span>Stock#</span></th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[120px] align-bottom pb-1"><span>Color(s)</span></th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>UV/Bleach Resist.</span></th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Archival</span></th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Tamper Proof</span></th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Waterproof</span></th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Fluorescent</span></th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Lubricated</span></th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Freeze Resist.</span></th>
-            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px]"><span>Exclusive</span></th>
-            <th class="p-1.5 text-xs max-w-[150px] text-left align-bottom pb-1"><span>Notes</span></th>
+    <div v-if="displayedInks.length > 0" class="flex-1 min-w-0 h-[calc(100vh-100px)] overflow-auto bg-white rounded-lg shadow-sm border border-gray-300 relative">
+      <table class="w-full border-separate border-spacing-0">
+        <thead class="bg-gray-100 sticky top-0 z-10">
+          <tr class="border-b-2 border-gray-300">
+            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[200px] text-left align-bottom pb-2">Name</th>
+            <th class="p-1.5 text-xs border-r border-r-[inherit] w-[40px] align-bottom pb-2"><span>Stock#</span></th>
+            <th class="p-1.5 text-xs w-[120px] align-bottom pb-1 border-r-0"><span>Color(s)</span></th>
+            <th class="rotated-header"><span>UV/Bleach Resist.</span></th>
+            <th class="rotated-header"><span>Archival</span></th>
+            <th class="rotated-header"><span>Tamper Proof</span></th>
+            <th class="rotated-header"><span>Waterproof</span></th>
+            <th class="rotated-header"><span>Fluorescent</span></th>
+            <th class="rotated-header"><span>Lubricated</span></th>
+            <th class="rotated-header"><span>Freeze Resist.</span></th>
+            <th class="rotated-header"><span>Exclusive</span></th>
+            <th class="notes-header"><span>Notes</span></th>
           </tr>
         </thead>
         <tbody>
@@ -58,23 +58,47 @@ const displayedInks = computed(() => {
 </script>
 
 <style scoped>
-thead th:nth-child(n+4):not(:last-child) {
-  height: 120px;
-  max-width: 40px;
-  overflow: visible;
-  padding-bottom: 0.5rem;
-  position: relative;
-  transform-origin: left bottom;
-  transform: rotate(-75deg);
-  vertical-align: bottom;
-  white-space: nowrap;
-  width: 40px !important;
+/* Base styling for rotated header cells - sets dimensions and removes default borders */
+.rotated-header {
+  @apply p-1.5 text-xs border-r border-r-[inherit] w-[40px] text-center whitespace-nowrap h-[120px] relative p-0 align-bottom border-b-0 border-r-0;
 }
 
-thead th:nth-child(n+4):not(:last-child) span {
-  bottom: -15px;
-  left: 10px;
-  position: absolute;
-  text-align: left;
+/* Container for the Notes header cell */
+.notes-header {
+  @apply relative p-1.5 text-xs max-w-[150px] align-bottom pb-2;
+}
+
+/* Left border styling for Notes header */
+.notes-header::before {
+  content: '';
+  @apply absolute bottom-0 -left-[1px] w-[1px] h-[150px] bg-gray-300;
+  transform: rotate(15deg);
+  transform-origin: bottom left;
+}
+
+/* Main styling for rotated header cells */
+thead th.rotated-header {
+  @apply relative h-[115px] max-w-[40px] p-0 whitespace-nowrap w-[40px]!;
+}
+
+/* Text styling inside rotated headers */
+thead th.rotated-header span {
+  @apply absolute bottom-0 left-[25px] w-[85px] pl-[5px] pb-[-10px] text-left;
+  transform: rotate(-75deg);
+  transform-origin: bottom left;
+}
+
+/* Right border for rotated header cells */
+thead th.rotated-header::before {
+  content: '';
+  @apply absolute top-0 right-0 w-0 h-full bg-gray-300;
+}
+
+/* Bottom border for rotated header cells */
+thead th.rotated-header::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-[120px] h-0 border-b-2 border-gray-300;
+  transform: rotate(-75deg);
+  transform-origin: bottom left;
 }
 </style>
