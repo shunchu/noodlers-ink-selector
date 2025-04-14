@@ -1,5 +1,5 @@
 <template>
-  <div class="w-50 p-3 bg-gray-100 rounded-md border border-gray-300">
+  <div class="w-50 p-3 bg-gray-100 rounded-md border border-gray-300 sticky top-4">
     <h3 class="text-lg font-medium mb-2 border-b pb-2">Filter Inks</h3>
 
     <div class="space-y-2">
