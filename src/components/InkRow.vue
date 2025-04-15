@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { availableFilters } from '../constants/filters';
 
 const props = defineProps({
   ink: {
@@ -24,16 +24,7 @@ const props = defineProps({
   }
 })
 
-const inkProperties = [
-  'uvResistant',
-  'archival',
-  'tamperProof',
-  'waterproof',
-  'fluorescent',
-  'lubricated',
-  'freezeResistant',
-  'exclusive'
-]
+const inkProperties = availableFilters.map((ink) => ink.id);
 
 const formatColors = (colors) => {
   if (!colors || !colors.length) return ''
@@ -48,11 +39,11 @@ const formatProperty = (value) => {
 }
 
 const getIconClass = (value) => ({
-  'fas': true,
-  'fa-check-circle text-green-600': value === true,
-  'fa-times-circle text-red-600': value === false,
-  'fa-exclamation-circle text-yellow-500': value === 'partial',
-  'fa-question-circle text-blue-500': typeof value !== 'boolean' && typeof value !== 'string'
+  'i-fw': true,
+  'i-ant-design:check-circle-filled text-green-600': value === true,
+  'i-ant-design:close-circle-filled text-red-600': value === false,
+  'i-ant-design:exclamation-circle-filled text-yellow-500': value === 'partial',
+  'i-ant-design:question-circle-filled text-blue-500': typeof value !== 'boolean' && typeof value !== 'string'
 })
 </script>
 

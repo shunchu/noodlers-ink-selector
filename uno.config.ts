@@ -1,4 +1,6 @@
-import { defineConfig, presetUno, presetAttributify } from 'unocss'
+import { defineConfig, presetAttributify, presetWind3 } from 'unocss';
+import presetIcons from '@unocss/preset-icons/browser';
+import antDesignIcons from '@iconify-json/ant-design/icons.json';
 
 // More selective color palette
 const colors = ['red', 'blue', 'green', 'gray'];
@@ -28,12 +30,23 @@ const hoverClasses = ['hover'].flatMap(v =>
 
 export default defineConfig({
   presets: [
-    presetUno({
-      dark: 'class'
+    presetAttributify(),
+    presetIcons({
+      warn: true,
+      extraProperties: {
+        'display': 'inline-block',
+      },
+      collections: {
+        'ant-design': () => antDesignIcons,
+      }
     }),
-    presetAttributify()
+    presetWind3(),
   ],
   safelist: [
+    'i-ant-design:check-circle-filled',
+    'i-ant-design:close-circle-filled',
+    'i-ant-design:exclamation-circle-filled',
+    'i-ant-design:question-circle-filled',
     // Common text colors
     ...textClasses,
     // Common background colors
