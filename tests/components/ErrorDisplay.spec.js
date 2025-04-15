@@ -23,8 +23,7 @@ describe('ErrorDisplay.vue', () => {
     });
 
     expect(screen.getByText(errorMessage)).toBeInTheDocument();
-
-    expect(document.querySelector('i.fas.fa-exclamation-circle')).toBeInTheDocument();
+    expect(document.querySelector('i.i-ant-design\\:i-exclamation-circle-filled')).toBeInTheDocument();
   });
 
   it('applies the correct styling classes', () => {
