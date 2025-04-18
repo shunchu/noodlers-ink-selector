@@ -4,7 +4,7 @@
     class="p-4 mb-4 bg-red-50/95 border border-red-200/80 rounded-lg text-red-700/90 text-sm"
   >
     <div class="flex items-center gap-2">
-      <i class="i-fw i-ant-design:i-exclamation-circle-filled text-red-600/90"></i>
+      <i class="w-4 h-4 i-ant-design:exclamation-circle-filled text-red-600/90"></i>
       <span>{{ error }}</span>
     </div>
   </div>

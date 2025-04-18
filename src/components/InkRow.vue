@@ -39,7 +39,7 @@ const formatProperty = (value) => {
 }
 
 const getIconClass = (value) => ({
-  'i-fw': true,
+  'w-4 h-4': true,
   'i-ant-design:check-circle-filled text-green-600': value === true,
   'i-ant-design:close-circle-filled text-red-600': value === false,
   'i-ant-design:exclamation-circle-filled text-yellow-500': value === 'partial',
