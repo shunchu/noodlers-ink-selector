@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50 text-gray-900">
-    <div class="container mx-auto px-6 py-6 max-w-7xl">
+    <div class="container px-6 py-6 w-screen h-screen min-w-screen max-w-screen min-h-screen max-h-screen m-0 p-0">
       <h1 class="text-2xl font-bold mb-6 text-center">Noodler's Ink Selector</h1>
 
       <InksTable :displayed-inks="filteredInks" :ink-store="$inkStore">

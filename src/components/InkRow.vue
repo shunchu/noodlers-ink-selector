@@ -1,16 +1,16 @@
 <template>
   <tr class="group hover:bg-gray-50/50 transition-colors duration-150 border-b border-gray-200">
-    <td class="px-1.5 py-1 text-left border-r border-gray-[inherit] text-xs text-gray-800">{{ ink.name }}</td>
-    <td class="px-1.5 py-1 border-r border-gray-[inherit] text-xs text-gray-800">{{ ink.stockNo }}</td>
-    <td class="px-1.5 py-1 border-r border-gray-[inherit] text-xs text-gray-800 text-center">{{ formatColors(ink.colors) }}</td>
+    <td class="px-1.5 py-1 text-left border-r border-gray-[inherit] text-xs text-gray-800 !break-normal">{{ ink.name }}</td>
+    <td class="px-1.5 py-1 border-r border-gray-[inherit] text-xs text-gray-800 break-words max-w-[60px] md:max-w-none">{{ ink.stockNo }}</td>
+    <td class="px-1.5 py-1 border-r border-gray-[inherit] text-xs text-gray-800 text-center !break-normal max-w-[90px] md:max-w-none">{{ formatColors(ink.colors) }}</td>
     <td
       v-for="prop in inkProperties"
       :key="prop"
-      class="py-1 border-r border-gray-[inherit] text-xs text-center text-gray-800"
+      class="py-1 border-r border-gray-[inherit] text-xs text-center text-gray-800 min-w-[36px] md:min-w-[40px]"
     >
       <i :class="getIconClass(ink[prop])" :title="formatProperty(ink[prop])"></i>
     </td>
-    <td class="px-1.5 py-1 text-xs text-gray-700/90">{{ ink.notes }}</td>
+    <td class="px-1.5 py-1 text-xs text-gray-700/90 !whitespace-nowrap max-w-[150px] md:max-w-none">{{ ink.notes }}</td>
   </tr>
 </template>
 
@@ -48,5 +48,16 @@ const getIconClass = (value) => ({
 </script>
 
 <style scoped>
-/* All styles converted to UnoCSS classes */
+@media (max-width: 768px) {
+  td {
+    padding: 0.25rem 0.25rem;
+    font-size: 11px;
+    word-break: break-word;
+  }
+  i {
+    font-size: 1.1em;
+    min-width: 1.5em;
+    min-height: 1.5em;
+  }
+}
 </style>

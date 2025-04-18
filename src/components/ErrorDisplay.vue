@@ -20,5 +20,17 @@ defineProps({
 </script>
 
 <style scoped>
-/* Removed the original styles as they are no longer needed with the updated Tailwind classes */
+@media (max-width: 768px) {
+  .p-4 {
+    padding: 1.25rem 0.75rem !important;
+  }
+  .text-sm {
+    font-size: 1rem !important;
+  }
+  i {
+    font-size: 1.5em;
+    min-width: 2em;
+    min-height: 2em;
+  }
+}
 </style>
